@@ -19,6 +19,11 @@ class ModelHasRolesSeeder extends Seeder
                 'model_id'       => '1',
                 'model_type'     => 'App\Models\User',
                 'role_id'        => '2'
+            ],
+            [
+                'model_id'       => '2',
+                'model_type'     => 'App\Models\User',
+                'role_id'        => '1'
             ]
         ]);
     }

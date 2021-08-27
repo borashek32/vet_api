@@ -13,10 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// общие роуты
+Route::get('/', [\App\Http\Controllers\SiteController::class, 'index']);
 
+// админка
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+// пользовательские роуты
+Route::resource('/dashboard/user/pets', \App\Http\Controllers\User\PetController::class)
+    ->middleware('auth')->names('pets');
+
+Route::resource('/dashboard/user/appointments', \App\Http\Controllers\User\AppointmentController::class)
+    ->middleware('auth')->names('appointments');
+
+// административные роуты
+Route::resource('/dashboard/admin/pets', \App\Http\Controllers\Admin\PetController::class)
+    ->middleware('auth')->names('admin-pets');
+
+Route::resource('/dashboard/admin/appointments', \App\Http\Controllers\Admin\AppointmentController::class)
+    ->middleware('auth')->names('admin-appointments');
