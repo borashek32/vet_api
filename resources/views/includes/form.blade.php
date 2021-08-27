@@ -19,7 +19,7 @@
             <select name="type_id" class="form-select border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2
                             focus:ring-indigo-400 rounded" aria-label="Default select example">
                 <option value="{{ old('type_id') }}" selected>Выберите вид питомца</option>
-                @foreach($user->types as $type)
+                @foreach($types as $type)
                     <option value="{{ $type->id }}">
                         {{ $type->pet_type }}
                     </option>

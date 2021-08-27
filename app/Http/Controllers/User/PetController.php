@@ -84,4 +84,14 @@ class PetController extends Controller
         return redirect('dashboard/user/pets')
             ->with('success', 'Информация о питомце была успешно удалена.');
     }
+
+    /**
+     * Просмотр всех записей питомца
+     */
+    public function appointments($id)
+    {
+        $pet = Pet::where('id', $id)->first();
+
+        return view('user.pets.pet-appointments', compact('pet'));
+    }
 }

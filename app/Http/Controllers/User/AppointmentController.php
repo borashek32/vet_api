@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Pet;
-use DateTime;
-
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -45,8 +45,14 @@ class AppointmentController extends Controller
                 if ($pet_type == 1 || $pet_type == 2) {
 
                     // Сравниваем дату каждой записи из базы данных с датой создаваемой записи
-                    if (date('Y-m-d', strtotime($appointment->day . " - 2 day")) <= date('Y-m-d', strtotime($request->day))) {
+                    $date1 = Carbon::create($request->day);
+                    $date2 = Carbon::create($appointment->day);
 
+                    // Получаем разницу между датами в днях, независимо от
+                    // того создаваемая запись будет до или после имеющейся в бд
+                    $difference = $date1->diff($date2)->days;
+
+                    if ($difference < 2) {
                         return back()->with('error', 'Вы не можете записать своего питомца на прием
                                                     c интервалом менее, чем 2 дня');
                     } else {
@@ -65,8 +71,14 @@ class AppointmentController extends Controller
                 if ($pet_type == 3) {
 
                     // Сравниваем дату каждой записи из базы данных с датой создаваемой записи
-                    if (date('Y-m-d', strtotime($appointment->day . " - 3 day")) <= date('Y-m-d', strtotime($request->day))) {
+                    $date1 = Carbon::create($request->day);
+                    $date2 = Carbon::create($appointment->day);
 
+                    // Получаем разницу между датами в днях, независимо от
+                    // того создаваемая запись будет до или после имеющейся в бд
+                    $difference = $date1->diff($date2)->days;
+
+                    if ($difference < 3) {
                         return back()->with('error', 'Вы не можете записать своего питомца на прием
                                                     c интервалом менее, чем 3 дня');
                     } else {

@@ -58,6 +58,11 @@
                                         <button class="mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                             Редактировать
                                         </button>
+                                    </a><br>
+                                    <a href="{{ route('pet-appointments', $pet->id) }}">
+                                        <button class="mb-2 bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Записи питомца
+                                        </button>
                                     </a>
                                     <form action="{{ route('pets.destroy', $pet->id) }}" method="POST">
                                         @csrf

@@ -36,6 +36,9 @@
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 tracking-wider">
                                 Дата и время
                             </th>
+                            <th class="px-6 py-3 border-b-2 border-gray-300 text-center text-sm leading-4 tracking-wider">
+                                Статус
+                            </th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 tracking-wider">
                                 Действие
                             </th>
@@ -58,6 +61,14 @@
                                     <br>
                                     {{ $appointment->time }}
                                 </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300 text-sm leading-5">
+                                    <label class="flex items-center">
+                                        <input class="status relative w-10 h-5 transition-all duration-200 ease-in-out bg-gray-400 cursor-pointer rounded-full shadow-inner outline-none appearance-none"
+                                               type="checkbox" data-on="Completed" data-off="pending" data-toggle="toggle"
+                                               {{ $appointment->status == 'completed' ? 'checked' : '' }}
+                                               name="status" value="{{ $appointment->id }}" id="status"/>
+                                    </label>
+                                </td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm leading-5">
                                     <form action="{{ route('admin-appointments.destroy', $appointment['id']) }}" method="POST">
                                         @csrf
@@ -76,4 +87,44 @@
             </div>
         </div>
     </div>
+    <style>
+        input:before {
+            content: '';
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            transform: scale(1.1);
+            box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+            background-color: white;
+            transition: .2s ease-in-out;
+        }
+
+        input:checked {
+            @apply: bg-indigo-400;
+            background-color:#7f9cf5;
+        }
+
+        input:checked:before {
+            left: 1.25rem;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('input[name=status]').change(function () {
+            var mode=$(this).prop('checked');
+            var id=$(this).val();
+            $.ajax({
+                url: "{{ route('appointments.status') }}",
+                type: "POST",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    mode: mode,
+                    id: id
+                },
+            })
+        });
+    </script>
 </x-app-layout>

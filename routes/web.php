@@ -28,9 +28,14 @@ Route::resource('/dashboard/user/pets', \App\Http\Controllers\User\PetController
 Route::resource('/dashboard/user/appointments', \App\Http\Controllers\User\AppointmentController::class)
     ->middleware('auth')->names('appointments');
 
+Route::get('/dashboard/user/pet/{id}', [\App\Http\Controllers\User\PetController::class, 'appointments'])
+    ->name('pet-appointments');
+
 // административные роуты
 Route::resource('/dashboard/admin/pets', \App\Http\Controllers\Admin\PetController::class)
     ->middleware('auth')->names('admin-pets');
+Route::post('/dashboard/admin/appointment_status', [\App\Http\Controllers\Admin\AppointmentController::class, 'appointmentStatus'])
+    ->name('appointments.status');
 
 Route::resource('/dashboard/admin/appointments', \App\Http\Controllers\Admin\AppointmentController::class)
     ->middleware('auth')->names('admin-appointments');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -19,7 +20,7 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Удаление записи на прием
+     * Удаление записи на прием в случае ее отмены
      */
     public function destroy(Appointment $appointment)
     {
@@ -27,5 +28,27 @@ class AppointmentController extends Controller
 
         return redirect('dashboard/admin/appointments')
             ->with('success', 'Запись на прием была успешно удалена.');
+    }
+
+    /**
+     * Статус записи меняет врач или админ клиники по окончанию времени приема
+     */
+    public function appointmentStatus(Request $request)
+    {
+        if ($request->mode == 'true') {
+            DB::table('appointments')->where('id', $request->id)
+                ->update(['status' => 'completed']);
+
+            return response()->json([
+                'status' => true
+            ]);
+        }
+        else {
+            DB::table('appointments')->where('id', $request->id)
+                ->update(['status' => 'pending']);
+        }
+        return response()->json([
+            'status' => false
+        ]);
     }
 }

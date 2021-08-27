@@ -18,6 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('pet_id')->constrained()->onDelete('cascade');
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['pending','completed'])->default('pending');
             $table->date('day');
             $table->time('time');
             $table->timestamps();
