@@ -53,7 +53,7 @@
                         </label>
 
                         <input type="text" value="{{ $appointment->day }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                            leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput2" name="day" required>
+                            leading-tight focus:outline-none focus:shadow-outline" id="day" name="day" required>
                     </div>
 
                     <div class="mb-4">
@@ -62,7 +62,7 @@
                         </label>
 
                         <input type="text" value="{{ $appointment->time }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
-                            leading-tight focus:outline-none focus:shadow-outline" id="exampleFormControlInput2" name="time" required>
+                            leading-tight focus:outline-none focus:shadow-outline" id="time" name="time" required>
                     </div>
 
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -88,4 +88,11 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js" type="text/javascript"></script>
+    <script>
+        $("#day").mask("9999-99-99");
+        $("#time").mask("99:99:99");
+    </script>
 </x-app-layout>

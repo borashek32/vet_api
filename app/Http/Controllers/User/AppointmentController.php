@@ -192,10 +192,10 @@ class AppointmentController extends Controller
                         return back()->with('error', 'Вы не можете записать своего питомца на прием
                                                     c интервалом менее, чем 2 дня');
                     } else {
-                        $appointment->pet_id    =  $request->pet_id;
-                        $appointment->type_id   =  $request->type_id;
-                        $appointment->day       =  $request->day;
-                        $appointment->time      =  $request->time;
+                        $appointment->pet_id = $request->pet_id;
+                        $appointment->type_id = $request->type_id;
+                        $appointment->day = $request->day;
+                        $appointment->time = $request->time;
                         $appointment->save();
 
                         return back()->with('success', 'Запись успешно обновлена');
@@ -217,10 +217,10 @@ class AppointmentController extends Controller
                         return back()->with('error', 'Вы не можете записать своего питомца на прием
                                                     c интервалом менее, чем 3 дня');
                     } else {
-                        $appointment->pet_id    =  $request->pet_id;
-                        $appointment->type_id   =  $request->type_id;
-                        $appointment->day       =  $request->day;
-                        $appointment->time      =  $request->time;
+                        $appointment->pet_id = $request->pet_id;
+                        $appointment->type_id = $request->type_id;
+                        $appointment->day = $request->day;
+                        $appointment->time = $request->time;
                         $appointment->save();
 
                         return back()->with('success', 'Запись успешно обновлена');
@@ -228,25 +228,13 @@ class AppointmentController extends Controller
                 }
             }
         }
-        $appointment->pet_id    =  $request->pet_id;
-        $appointment->type_id   =  $request->type_id;
-        $appointment->day       =  $request->day;
-        $appointment->time      =  $request->time;
+        $appointment->pet_id = $request->pet_id;
+        $appointment->type_id = $request->type_id;
+        $appointment->day = $request->day;
+        $appointment->time = $request->time;
         $appointment->save();
 
         return back()->with('success', 'Запись успешно обновлена');
-
-
-
-        // Добавить перед обновлением записи такую же проверку, как и в store
-//        $appointment->pet_id    =  $request->pet_id;
-//        $appointment->type_id   =  $request->type_id;
-//        $appointment->day       =  $request->day;
-//        $appointment->time      =  $request->time;
-//        $appointment->save();
-//
-//        return redirect('dashboard/appointments')
-//            ->with('success', 'Информация о питомце была успешно обновлена.');
     }
 
     /**
@@ -256,7 +244,7 @@ class AppointmentController extends Controller
     {
         $appointment->delete();
 
-        return redirect('dashboard/appointments')
+        return redirect('dashboard/user/appointments')
             ->with('success', 'Запись на прием была успешно удалена.');
     }
 }
