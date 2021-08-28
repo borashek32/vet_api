@@ -30,11 +30,32 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        // Проведяем наличие в бд записи на это же время в этот же день
+        // Получаем из формы записи день и время записи
+        $new_day   = $request->day;
+        $new_time  = $request->time;
+
+        // Получаем все записи из бд
+        $existed_appointments = Appointment::all();
+
+        // Проходим их все в цикле
+        foreach ($existed_appointments as $visit) {
+
+            // Сравниваем каждый день и каждое время из бд с создаваемой записью
+            if ($visit->day == $request->day && $visit->time == $request->time) {
+                return back()->with('error', 'Вы не можете записать своего питомца на это время,
+                                        так как оно уже занято');
+            }
+        }
+
+        // Проверяем не записан ли тот же самый питомец в интервале 2 или 3 дня
+        // Допустимый интервал для собаки или кошки - 2 дня, для хомяка - 3 дня
         // Получаем питомца
         $pet = Pet::where('id', $request->pet_id)->first();
 
         // Проверяем есть ли у питомца записи
         if ($pet->appointments) {
+
             // Получаем тип питомца
             $pet_type = $request->type_id;
 
@@ -119,7 +140,7 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        // Добавить такую же проверку, как и в store
+        // Добавить перед обновлением записи такую же проверку, как и в store
         $appointment->pet_id    =  $request->pet_id;
         $appointment->type_id   =  $request->type_id;
         $appointment->day       =  $request->day;

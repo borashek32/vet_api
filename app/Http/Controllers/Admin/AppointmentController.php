@@ -21,6 +21,7 @@ class AppointmentController extends Controller
 
     /**
      * Удаление записи на прием в случае ее отмены
+     * Вместо статуса DECLINED админ удаляет запись на прием
      */
     public function destroy(Appointment $appointment)
     {
