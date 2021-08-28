@@ -56,6 +56,11 @@
                                     {{ $appointment->time }}
                                 </td>
                                 <td class="px-6 py-4 border-b border-gray-300 text-sm leading-5">
+                                    <a href="{{ route('appointments.edit', $appointment->id) }}">
+                                        <button class="mb-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Редактировать
+                                        </button>
+                                    </a><br>
                                     <form action="{{ route('appointments.destroy', $appointment->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
